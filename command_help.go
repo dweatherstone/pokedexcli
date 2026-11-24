@@ -5,10 +5,10 @@ import (
 	"strings"
 )
 
-func commandHelp() error {
+func commandHelp(cfg *config) error {
 	var helpString strings.Builder
 	helpString.WriteString("Welcome to the Pokedex!\nUsage:\n\n")
-	for _, command := range getCommands() {
+	for _, command := range cfg.commands {
 		commandString := fmt.Sprintf("%s: %s\n", command.name, command.description)
 		helpString.WriteString(commandString)
 	}
