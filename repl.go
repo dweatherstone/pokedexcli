@@ -7,6 +7,12 @@ import (
 	"strings"
 )
 
+type cliCommand struct {
+	name        string
+	description string
+	callback    func() error
+}
+
 func cleanInput(text string) []string {
 	lower_text := strings.ToLower(text)
 	return strings.Fields(lower_text)
@@ -29,7 +35,29 @@ func startRepl() {
 			continue
 		}
 		commandName := words[0]
-		fmt.Printf("Your command was: %s\n", commandName)
+		command, ok := getCommands()[commandName]
+		if ok {
+			err := command.callback()
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Error running callback: %v\n", err)
+			}
+		} else {
+			fmt.Printf("Unknown command: %s\n", commandName)
+		}
+	}
+}
 
+func getCommands() map[string]cliCommand {
+	return map[string]cliCommand{
+		"exit": {
+			name:        "exit",
+			description: "Exit the Pokedex",
+			callback:    commandExit,
+		},
+		"help": {
+			name:        "help",
+			description: "Displays a help message",
+			callback:    commandHelp,
+		},
 	}
 }
