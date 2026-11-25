@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/dweatherstone/pokedexcli/internal/pokeapi"
 )
 
 type cliCommand struct {
@@ -14,7 +16,11 @@ type cliCommand struct {
 }
 
 type config struct {
-	commands map[string]cliCommand
+	commands        map[string]cliCommand
+	pokeClient      *pokeapi.Client
+	mapNextURL      *string
+	mapPrevURL      *string
+	locationAreaURL string
 }
 
 func cleanInput(text string) []string {
@@ -62,6 +68,16 @@ func getCommands() map[string]cliCommand {
 			name:        "help",
 			description: "Displays a help message",
 			callback:    commandHelp,
+		},
+		"map": {
+			name:        "map",
+			description: "Displays the next 20 location areas",
+			callback:    commandMap,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Displays the previous 20 location areas",
+			callback:    commandMapB,
 		},
 	}
 }
