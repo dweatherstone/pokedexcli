@@ -29,7 +29,7 @@ func TestCommandMapBOnFirstPage(t *testing.T) {
 	}
 
 	output := captureStdout(t, func() {
-		if err := commandMapB(cfg); err != nil {
+		if err := commandMapB(cfg, []string{}); err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
 	})
@@ -40,7 +40,7 @@ func TestCommandMapBOnFirstPage(t *testing.T) {
 	}
 }
 
-func testMapCommand(t *testing.T, name string, command func(*config) error, expectedPath string) {
+func testMapCommand(t *testing.T, name string, command func(*config, []string) error, expectedPath string) {
 	t.Helper()
 
 	// Create a mock API server.
@@ -79,7 +79,7 @@ func testMapCommand(t *testing.T, name string, command func(*config) error, expe
 
 	// Capture stdout so we can check the printed location names.
 	output := captureStdout(t, func() {
-		if err := command(cfg); err != nil {
+		if err := command(cfg, []string{}); err != nil {
 			t.Fatalf("%s returned an unexpected error: %v", name, err)
 		}
 	})

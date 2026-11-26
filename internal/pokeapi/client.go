@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+
+	//"log"
 	"net/http"
 	"time"
 
@@ -37,11 +39,13 @@ func NewClient() *Client {
 func (c *Client) Get(url string, dest any) error {
 	data, found := c.cache.Get(url)
 	if found {
+		//log.Printf("CACHE HIT: %s", url)
 		if err := unmarshalJson(data, dest); err != nil {
 			return err
 		}
 		return nil
 	}
+	//log.Printf("NETWORK REQUEST: %s", url)
 	res, err := c.httpClient.Get(url)
 	if err != nil {
 		return fmt.Errorf("sending HTTP GET request: %w", err)

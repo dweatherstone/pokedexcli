@@ -6,7 +6,7 @@ import (
 	"github.com/dweatherstone/pokedexcli/internal/pokeapi"
 )
 
-func commandMap(cfg *config) error {
+func commandMap(cfg *config, _params []string) error {
 	url := cfg.locationAreaURL
 	if cfg.mapNextURL != nil {
 		url = *cfg.mapNextURL
@@ -15,7 +15,7 @@ func commandMap(cfg *config) error {
 	return getLocationAreas(cfg, url, "commandMap")
 }
 
-func commandMapB(cfg *config) error {
+func commandMapB(cfg *config, _params []string) error {
 	if cfg.mapPrevURL == nil {
 		fmt.Println("You're on the first page")
 		return nil
