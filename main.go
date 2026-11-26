@@ -9,6 +9,8 @@ func main() {
 		mapNextURL:      nil,
 		mapPrevURL:      nil,
 		locationAreaURL: "https://pokeapi.co/api/v2/location-area/",
+		pokemonURL:      "https://pokeapi.co/api/v2/pokemon/",
+		pokedex:         make(map[string]pokeapi.Pokemon),
 	}
 	startRepl(cfg)
 }

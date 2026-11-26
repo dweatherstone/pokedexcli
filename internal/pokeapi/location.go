@@ -7,10 +7,10 @@ type LocationResponse struct {
 }
 
 type Encounter struct {
-	Pokemon Pokemon `json:"pokemon"`
+	Pokemon PokemonReference `json:"pokemon"`
 }
 
-type Pokemon struct {
+type PokemonReference struct {
 	Name string `json:"name"`
 	URL  string `json:"url"`
 }
