@@ -8,7 +8,7 @@ func main() {
 		pokeClient:      pokeapi.NewClient(),
 		mapNextURL:      nil,
 		mapPrevURL:      nil,
-		locationAreaURL: "https://pokeapi.co/api/v2/location-area/",
+		locationAreaURL: "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20",
 	}
 	startRepl(cfg)
 }
